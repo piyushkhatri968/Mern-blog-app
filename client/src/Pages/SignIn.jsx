@@ -28,7 +28,7 @@ const SignIn = () => {
       const URL = "/api/auth/signin";
       const live_URL = "https://pk-mern-blog-app.vercel.app/api/auth/signin";
       dispatch(signInStart());
-      const res = await fetch(live_URL, {
+      const res = await fetch(URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
