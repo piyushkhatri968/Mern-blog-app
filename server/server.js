@@ -3,10 +3,13 @@ dotenv.config();
 import cors from "cors";
 import express from "express";
 const app = express();
-const port = 8080;     //!
+const port = 8080; //!
+
+import cookieParser from "cookie-parser";
 
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 import mongoose from "mongoose";
 import userRoute from "./Routes/User.route.js";
@@ -24,7 +27,8 @@ mongoose
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-app.listen(port, () => {     //!
+app.listen(port, () => {
+  //!
   console.log(`Example app listening on port ${port}!`);
 });
 
