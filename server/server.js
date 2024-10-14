@@ -42,4 +42,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-module.exports = app; // Export the app instead of using app.listen()
+export default app; // Export the app instead of using app.listen()
