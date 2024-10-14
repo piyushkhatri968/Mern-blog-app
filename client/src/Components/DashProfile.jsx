@@ -20,9 +20,23 @@ const DashProfile = () => {
     useState(null);
   const [imageFileUploadError, setImageFileUploadError] = useState(null);
 
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+
+    if (!file.type.startsWith("image/")) {
+      setImageFileUploadError("File must be an image.");
+      setImageFile(null);
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      // 2MB size limit
+      setImageFileUploadError("File size must be less than 2MB.");
+      setImageFile(null);
+      return;
+    }
+
+    setImageFileUploadError(null);
     if (file) {
       setImageFile(file);
       setImageFileUrl(URL.createObjectURL(file));
@@ -44,9 +58,7 @@ const DashProfile = () => {
         setImageFileUploadingProgress(progress.toFixed(0));
       },
       (error) => {
-        setImageFileUploadError(
-          "Could not upload image (File must be less than 2MB)"
-        );
+        setImageFileUploadError("Could not upload image");
         setImageFileUploadingProgress(null);
         setImageFile(null);
         setImageFileUrl(null);
@@ -99,7 +111,7 @@ const DashProfile = () => {
             />
           )}
           <img
-            src={imageFileUrl || currentUser.profilePicture}
+            src={(imageFileUrl && imageFileUrl) || currentUser.profilePicture}
             alt="user"
             className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${
               imageFileUploadingProgress &&
