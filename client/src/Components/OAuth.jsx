@@ -17,9 +17,11 @@ const OAuth = () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     try {
+      const URL = "/api/auth/google";
+      const live_URL = "https://pk-mern-blog-app.vercel.app/api/auth/google";
       const resultsFromGoogle = await signInWithPopup(auth, provider);
       //   console.log(resultsFromGoogle);
-      const res = await fetch("api/auth/google", {
+      const res = await fetch(live_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

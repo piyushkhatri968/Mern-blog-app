@@ -25,8 +25,10 @@ const SignIn = () => {
       return dispatch(signInFailure("Please fill out all fields."));
     }
     try {
+      const URL = "/api/auth/signin";
+      const live_URL = "https://pk-mern-blog-app.vercel.app/api/auth/signin";
       dispatch(signInStart());
-      const res = await fetch("/api/auth/signin", {
+      const res = await fetch(live_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
