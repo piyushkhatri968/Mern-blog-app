@@ -55,7 +55,7 @@ const SignUp = () => {
             <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
               Piyush's
             </span>
-            <span className="text-black">Blog</span>
+            <span>Blog</span>
           </Link>
           <p className="text-sm mt-5">
             You can sign up with your email and password or google
@@ -65,30 +65,33 @@ const SignUp = () => {
         <div className="flex-1">
           <form className="flex flex-col gap-4" onSubmit={submitHandler}>
             <div>
-              <Label value="Your username" className="h-64 dark:text-black" />
+              <Label value="Your username" className="h-64" />
               <TextInput
                 type="text"
                 placeholder="Username"
                 id="username"
                 onChange={handleInputChange}
+                className="mt-1"
               />
             </div>
             <div>
-              <Label value="Your email" className="h-64 dark:text-black" />
+              <Label value="Your email" className="h-64" />
               <TextInput
                 type="email"
                 placeholder="name@company.com"
                 id="email"
                 onChange={handleInputChange}
+                className="mt-1"
               />
             </div>
             <div>
-              <Label value="Your password" className="h-64 dark:text-black" />
+              <Label value="Your password" className="h-64 " />
               <TextInput
                 type="password"
                 placeholder="Password"
                 id="password"
                 onChange={handleInputChange}
+                className="mt-1"
               />
             </div>
             <Button gradientDuoTone="purpleToPink" type="submit">

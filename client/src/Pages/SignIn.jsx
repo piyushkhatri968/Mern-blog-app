@@ -75,6 +75,7 @@ const SignIn = () => {
                 placeholder="name@company.com"
                 id="email"
                 onChange={handleInputChange}
+                className="mt-1"
               />
             </div>
             <div>
@@ -84,6 +85,7 @@ const SignIn = () => {
                 placeholder="********"
                 id="password"
                 onChange={handleInputChange}
+                className="mt-1"
               />
             </div>
             <Button gradientDuoTone="purpleToPink" type="submit">
