@@ -14,6 +14,7 @@ app.use(cookieParser());
 import mongoose from "mongoose";
 import userRoute from "./Routes/User.route.js";
 import authRoute from "./Routes/Auth.route.js";
+import postRoute from "./Routes/Post.route.js";
 
 mongoose
   .connect(process.env.MONGODB)
@@ -34,6 +35,7 @@ app.listen(port, () => {
 
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/post", postRoute);
 
 // MIDDLEWARE # 01
 app.use((err, req, res, next) => {
