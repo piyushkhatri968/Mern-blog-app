@@ -2,12 +2,8 @@ import { errorHandler } from "../utils/Error.js";
 import bcryptjs from "bcryptjs";
 import User from "../Models/User.model.js";
 
-export const test = (req, res) => {
-  res.json({ message: "Api is working" });
-};
-
 export const updateUser = async (req, res, next) => {
-  let { username, password, email, profilePicture } = req.body;
+  let { username, password } = req.body;
 
   if (req.user.id !== req.params.userId) {
     return next(errorHandler(403, "You are not allowed to update this user"));
@@ -21,9 +17,9 @@ export const updateUser = async (req, res, next) => {
   }
 
   if (username) {
-    if (username.length < 7 || username.length > 20) {
+    if (username.length < 6 || username.length > 20) {
       return next(
-        errorHandler(400, "username must be between 7 and 20 characters")
+        errorHandler(400, "username must be between 6 and 20 characters")
       );
     }
     if (username.includes(" ")) {
@@ -38,26 +34,27 @@ export const updateUser = async (req, res, next) => {
         errorHandler(400, "username can only contain the letters and numbers")
       );
     }
-    try {
-      const updatedUser = await User.findByIdAndUpdate(
-        req.params.userId,
-        {
-          $set: {
-            username: req.body.username,
-            email: req.body.email,
-            profilePicture: req.body.profilePicture,
-            password: req.body.password,
-          },
+  }
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.userId,
+      {
+        $set: {
+          username: req.body.username,
+          email: req.body.email,
+          profilePicture: req.body.profilePicture,
+          password: req.body.password,
         },
-        { new: true }
-      );
-      if (!updatedUser) {
-        return next(errorHandler(404, "User not found"));
-      }
-      const { password, ...rest } = updatedUser._doc;
-      res.status(200).json(rest);
-    } catch (error) {
-      next(error);
+      },
+      { new: true }
+    );
+    if (!updatedUser) {
+      return next(errorHandler(404, "User not found"));
     }
+
+    const { password, ...rest } = updatedUser._doc;
+    res.status(200).json(rest);
+  } catch (error) {
+    next(error);
   }
 };
