@@ -21,6 +21,7 @@ const SignIn = () => {
   };
   const submitHandler = async (e) => {
     e.preventDefault();
+
     if (!formData.email || !formData.password) {
       return dispatch(signInFailure("Please fill out all fields."));
     }

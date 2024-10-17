@@ -1,5 +1,5 @@
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import {
@@ -12,9 +12,10 @@ import app from "../Firebase";
 
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const CreatePost = () => {
+const UpdatePost = () => {
   const [formData, setFormData] = useState({ category: "uncategorized" });
   const [file, setFile] = useState(null);
   const [imageFileUploadingProgress, setImageFileUploadingProgress] =
@@ -24,6 +25,30 @@ const CreatePost = () => {
   const [postError, setPostError] = useState(null);
 
   const navigate = useNavigate();
+  const { postId } = useParams();
+
+  const { currentUser } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const updatePost = async () => {
+      try {
+        const res = await fetch(`/api/post/getposts?postId=${postId}`);
+        const data = await res.json();
+        if (!res.ok) {
+          setPostError(data.message);
+        } else {
+          setPostError(null);
+          setFormData(data.posts[0]);
+        }
+      } catch (error) {
+        console.error("Error fetching post:", error.message);
+      }
+    };
+
+    if (postId) {
+      updatePost();
+    }
+  }, [postId]);
 
   const handleUploadImage = async () => {
     try {
@@ -64,18 +89,22 @@ const CreatePost = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
     if (!formData.title || !formData.content) {
       setPostError("All fields are required");
       return;
     }
     try {
-      const res = await fetch("/api/post/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `/api/post/updatepost/${postId}/${currentUser._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (!res.ok) {
         return setPostError(data.message);
@@ -83,7 +112,7 @@ const CreatePost = () => {
 
       if (res.ok) {
         setPostError(null);
-        setPostSuccess("Post created successfully");
+        setPostSuccess("Post updated successfully");
         setTimeout(() => {
           // navigate(`/post/${data.slug}`);
           navigate("/dashboard?tab=posts");
@@ -95,7 +124,7 @@ const CreatePost = () => {
   };
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
-      <h1 className="text-center text-3xl my-7 font-semibold">Create a Post</h1>
+      <h1 className="text-center text-3xl my-7 font-semibold">Update Post</h1>
       <form className="flex flex-col gap-4" onSubmit={handleFormSubmit}>
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
           <TextInput
@@ -106,6 +135,7 @@ const CreatePost = () => {
             onChange={(e) =>
               setFormData({ ...formData, title: e.target.value })
             }
+            value={formData.title}
           />
           <Select
             value={formData.category}
@@ -158,7 +188,7 @@ const CreatePost = () => {
         <ReactQuill
           theme="snow"
           className="h-72 mb-12"
-          value={formData.content || ""}
+          value={formData.content}
           onChange={(value) => setFormData({ ...formData, content: value })}
         />
         <Button
@@ -167,7 +197,7 @@ const CreatePost = () => {
           className="mt-5 md:mt-0"
           disabled={imageFileUploadingProgress !== null}
         >
-          {imageFileUploadingProgress ? "Image Uploading ..." : "Publish"}
+          {imageFileUploadingProgress ? "Image Uploading ..." : "Update"}
         </Button>
       </form>
       {postError && (
@@ -184,4 +214,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default UpdatePost;
