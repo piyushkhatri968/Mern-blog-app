@@ -335,7 +335,7 @@ const DashProfile = () => {
               Are you sure you want to sign out your account?
             </h3>
             <div className="flex justify-center gap-5">
-              <Button onClick={() => setShowDeleteModel(false)} color="gray">
+              <Button onClick={() => setShowSignoutModel(false)} color="gray">
                 No, cancel
               </Button>
               <Button color="failure" onClick={handleSignOut}>
