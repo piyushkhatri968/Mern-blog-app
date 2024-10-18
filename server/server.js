@@ -3,7 +3,7 @@ dotenv.config();
 import cors from "cors";
 import express from "express";
 const app = express();
-const port = 8080; //!
+// const port = 8080; //!
 
 import cookieParser from "cookie-parser";
 
@@ -23,16 +23,16 @@ mongoose
     console.log("App connected to the Database");
   })
   .catch((error) => {
-    console.log("Error in connecting to Database", error);
+    console.log("Error in connecting to Database", error.message);
   });
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-app.listen(port, () => {
-  //!
-  console.log(`Example app listening on port ${port}!`);
-});
+
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}!`);
+// });
 
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
@@ -50,4 +50,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-export default app; // Export the app instead of using app.listen()
+export default app;

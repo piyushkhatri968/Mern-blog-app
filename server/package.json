@@ -9,7 +9,7 @@
     "build": "echo 'Skipping build step'"
   },
   "keywords": [],
-  "author": "",
+  "author": "Piyush Khatri",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
