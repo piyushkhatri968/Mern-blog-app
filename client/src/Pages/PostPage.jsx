@@ -4,12 +4,13 @@ import { Link, useParams } from "react-router-dom";
 import CallToAction from "../Components/CallToAction";
 import CommentSection from "../Components/CommentSection";
 import PostCard from "../Components/PostCard";
+
 const PostPage = () => {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
-  const [recentPosts, setRecentPosts] = useState([]);
+  const [recentPosts, setRecentPosts] = useState(null);
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -91,6 +92,9 @@ const PostPage = () => {
         <CallToAction />
       </div>
       <CommentSection postId={post._id} />
+
+      {/* Recent Articles */}
+
       <div className="flex flex-col justify-center items-center mb-5">
         <h1 className="text-xl mt-5">Recent Articles</h1>
         <div className="flex flex-wrap gap-5 mt-5 justify-center">
