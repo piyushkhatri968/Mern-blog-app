@@ -12,6 +12,8 @@ const CommentSection = ({ postId }) => {
   const [commentError, setCommentError] = useState(null);
   const [allComments, setAllComments] = useState([]);
   const [likeModal, setLikeModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [commentToDeleteId, setCommentToDeleteId] = useState(null);
 
   const navigate = useNavigate();
 
@@ -89,12 +91,32 @@ const CommentSection = ({ postId }) => {
   };
 
   // it will refresh the comments after update
-  const handleEditComment = async (comment, editedContent) => {
+  const handleEditComment = (comment, editedContent) => {
     setAllComments(
       allComments.map((c) =>
         c._id === comment._id ? { ...c, content: editedContent } : c
       )
     );
+  };
+
+  const handleDeleteComment = async () => {
+    setDeleteModal(false);
+    try {
+      const res = await fetch(
+        `/api/comment/deleteComment/${commentToDeleteId}`,
+        {
+          method: "PUT",
+        }
+      );
+      if (res.ok) {
+        const data = res.json();
+        setAllComments(
+          allComments.filter((comment) => comment._id !== commentToDeleteId)
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -166,6 +188,10 @@ const CommentSection = ({ postId }) => {
                 comment={comment}
                 onLike={handleLike}
                 onEdit={handleEditComment}
+                onDelete={(commentId) => {
+                  setDeleteModal(true);
+                  setCommentToDeleteId(commentId);
+                }}
               />
             ))}
         </>
@@ -189,6 +215,30 @@ const CommentSection = ({ postId }) => {
               </Button>
               <Button color="failure" onClick={() => navigate("/sign-in")}>
                 Yes navigate to sign in
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        show={deleteModal}
+        onClose={() => setDeleteModal(false)}
+        popup
+        size="md"
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this comment?
+            </h3>
+            <div className="flex justify-center gap-5">
+              <Button onClick={() => setDeleteModal(false)} color="gray">
+                No, cancel
+              </Button>
+              <Button color="failure" onClick={handleDeleteComment}>
+                Yes, delete
               </Button>
             </div>
           </div>

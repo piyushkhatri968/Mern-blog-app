@@ -4,7 +4,7 @@ import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Button, Textarea } from "flowbite-react";
 
-const Comments = ({ comment, onLike, onEdit }) => {
+const Comments = ({ comment, onLike, onEdit, onDelete }) => {
   const [user, setUser] = useState({});
   const { currentUser } = useSelector((state) => state.user);
   const [isEditing, setIsEditing] = useState(false);
@@ -49,6 +49,8 @@ const Comments = ({ comment, onLike, onEdit }) => {
     }
   };
 
+
+
   return (
     <div className="flex p-4 border-b dark:border-gray-600 text-sm">
       <div className="flex-shrink-0 mr-3">
@@ -59,10 +61,13 @@ const Comments = ({ comment, onLike, onEdit }) => {
         />
       </div>
       <div className="flex-1">
-        <div className="flex items-center mb-1">
+        <div className="flex items-center mb-1 gap-1">
           <span className="font-bold mr-1 text-xs truncate">
             {user ? `@${user.username}` : "@anonympus user"}
           </span>
+          {comment.updatedAt && comment.updatedAt !== comment.createdAt && (
+            <span className="text-xs text-gray-400">(Edited)</span>
+          )}
           <span className="text-gray-500 text-sm">
             {moment(comment.createdAt).fromNow()}
           </span>
@@ -117,13 +122,22 @@ const Comments = ({ comment, onLike, onEdit }) => {
               </p>
               {currentUser &&
                 (currentUser._id === comment.userId || currentUser.isAdmin) && (
-                  <button
-                    onClick={handleEditComment}
-                    type="button"
-                    className="text-gray-400 hover:text-gray-800"
-                  >
-                    Edit
-                  </button>
+                  <>
+                    <button
+                      onClick={handleEditComment}
+                      type="button"
+                      className="text-gray-400 hover:text-gray-800"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => onDelete(comment._id)}
+                      type="button"
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      Delete
+                    </button>
+                  </>
                 )}
             </div>
           </>
