@@ -8,7 +8,12 @@ const app = express();
 import cookieParser from "cookie-parser";
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://pk-mern-blog-app.vercel.app/", // Replace with your frontend domain when deployed
+    credentials: true, // Allow cookies for authentication (if needed)
+  })
+);
 app.use(cookieParser());
 
 import mongoose from "mongoose";
