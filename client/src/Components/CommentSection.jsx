@@ -1,14 +1,19 @@
-import { Alert, Button, Textarea } from "flowbite-react";
+import { Alert, Button, Modal, Textarea } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Comments from "./Comments";
+import { useNavigate } from "react-router-dom";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 const CommentSection = ({ postId }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
   const [commentError, setCommentError] = useState(null);
   const [allComments, setAllComments] = useState([]);
+  const [likeModal, setLikeModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,6 +59,34 @@ const CommentSection = ({ postId }) => {
     };
     getComments();
   }, [postId]);
+
+  const handleLike = async (commentId) => {
+    try {
+      if (!currentUser) {
+        setLikeModal(true);
+      }
+      const res = await fetch(`/api/comment/likeComment/${commentId}`, {
+        method: "PUT",
+      });
+      if (res.ok) {
+        const data = await res.json();
+
+        setAllComments(
+          allComments.map((comment) =>
+            comment._id === commentId
+              ? {
+                  ...comment,
+                  likes: data.likes,
+                  numberOfLikes: data.numberOfLikes,
+                }
+              : comment
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className="max-w-2xl mx-auto w-full p-3">
@@ -119,10 +152,38 @@ const CommentSection = ({ postId }) => {
           </div>
           {allComments &&
             allComments.map((comment) => (
-              <Comments key={comment._id} comment={comment} />
+              <Comments
+                key={comment._id}
+                comment={comment}
+                onLike={handleLike}
+              />
             ))}
         </>
       )}
+      <Modal
+        show={likeModal}
+        onClose={() => setLikeModal(false)}
+        popup
+        size="md"
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+              You need to sign in to like !
+            </h3>
+            <div className="flex justify-center gap-5">
+              <Button onClick={() => setLikeModal(false)} color="gray">
+                No, cancel
+              </Button>
+              <Button color="failure" onClick={() => navigate("/sign-in")}>
+                Yes navigate to sign in
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
