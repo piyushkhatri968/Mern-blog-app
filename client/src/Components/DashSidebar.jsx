@@ -6,6 +6,7 @@ import {
   HiDocumentText,
   HiOutlineUserGroup,
   HiAnnotation,
+  HiChartPie,
 } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -26,26 +27,21 @@ const DashSidebar = () => {
       setTab(tabFromUrl);
     }
   }, [location.search]);
-
-  const handleSignOut = async () => {
-    try {
-      const res = await fetch("/api/user/signout", {
-        method: "POST",
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        console.log(data.error);
-      } else {
-        dispatch(signoutsuccess());
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup className="flex flex-col ">
+          {currentUser.isAdmin && (
+            <Link to="/dashboard?tab=dash">
+              <Sidebar.Item
+                active={tab === "dash" || !tab}
+                icon={HiChartPie}
+                as="div"
+              >
+                Dashboard
+              </Sidebar.Item>
+            </Link>
+          )}
           <Link to="/dashboard?tab=profile">
             <Sidebar.Item
               active={tab === "profile"}
@@ -90,13 +86,6 @@ const DashSidebar = () => {
               </Sidebar.Item>
             </Link>
           )}
-          <Sidebar.Item
-            icon={HiArrowSmRight}
-            className="cursor-pointer"
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
