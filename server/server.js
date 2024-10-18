@@ -8,12 +8,7 @@ const app = express();
 import cookieParser from "cookie-parser";
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: "https://pk-mern-blog-app.vercel.app/", // Replace with your frontend domain when deployed
-    credentials: true, // Allow cookies for authentication (if needed)
-  })
-);
+app.use(cors());
 app.use(cookieParser());
 
 import mongoose from "mongoose";
@@ -39,10 +34,10 @@ app.get("/", (req, res) => {
 //   console.log(`Example app listening on port ${port}!`);
 // });
 
-app.use("/api/user", userRoute);
-app.use("/api/auth", authRoute);
-app.use("/api/post", postRoute);
-app.use("/api/comment", commentRoute);
+// app.use("/api/user", userRoute);
+// app.use("/api/auth", authRoute);
+// app.use("/api/post", postRoute);
+// app.use("/api/comment", commentRoute);
 
 // MIDDLEWARE # 01
 app.use((err, req, res, next) => {
