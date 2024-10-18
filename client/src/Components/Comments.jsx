@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Textarea } from "flowbite-react";
+import { Button, Textarea } from "flowbite-react";
 
-const Comments = ({ comment, onLike }) => {
+const Comments = ({ comment, onLike, onEdit }) => {
   const [user, setUser] = useState({});
   const { currentUser } = useSelector((state) => state.user);
   const [isEditing, setIsEditing] = useState(false);
@@ -27,6 +27,26 @@ const Comments = ({ comment, onLike }) => {
 
   const handleEditComment = async () => {
     setIsEditing(true);
+    setEditedContent(comment.content);
+  };
+
+  const handleSaveComment = async () => {
+    try {
+      const res = await fetch(`/api/comment/editComment/${comment._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content: editedContent }),
+      });
+
+      if (res.ok) {
+        setIsEditing(false);
+        onEdit(comment, editedContent);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -48,12 +68,34 @@ const Comments = ({ comment, onLike }) => {
           </span>
         </div>
         {isEditing ? (
-       
-            <Textarea>{comment.content}</Textarea>
- 
+          <>
+            <Textarea
+              className="mb-2"
+              value={editedContent}
+              onChange={(e) => setEditedContent(e.target.value)}
+            />
+            <div className="flex justify-end gap-2 text-sm">
+              <Button
+                type="button"
+                size="sm"
+                gradientDuoTone="purpleToBlue"
+                onClick={handleSaveComment}
+              >
+                Save
+              </Button>
+              <Button
+                type="button"
+                size="sm"
+                gradientDuoTone="purpleToBlue"
+                outline
+                onClick={() => setIsEditing(false)}
+              >
+                Cancel
+              </Button>
+            </div>
+          </>
         ) : (
           <>
-            {" "}
             <p className="text-gray-500 mb-2">{comment.content}</p>
             <div className="flex items-center pt-2 text-xs border-t dark:border-gray-700 max-w-fit gap-2">
               <button
