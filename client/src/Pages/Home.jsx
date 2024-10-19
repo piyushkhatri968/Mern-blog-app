@@ -8,10 +8,13 @@ const Home = () => {
   useEffect(() => {
     try {
       const fetchPosts = async () => {
-        const res = await fetch(`http://localhost:8080/api/post/getposts`, {
-          method: "GET",
-          credentials: "include",
-        });
+        const res = await fetch(
+          `https://mern-blogwebapp-backend.vercel.app/api/post/getposts`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
         if (res.ok) {
           const data = await res.json();
           setPosts(data.posts);
