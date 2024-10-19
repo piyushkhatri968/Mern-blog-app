@@ -10,7 +10,7 @@ import cookieParser from "cookie-parser";
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend URL
+    origin: "https://pk-mern-blog-app.vercel.app/", // Your frontend URL
     credentials: true, // Allow credentials (cookies)
   })
 );
