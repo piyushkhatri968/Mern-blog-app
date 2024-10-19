@@ -19,13 +19,14 @@ const SignUp = () => {
       return setErrorMessage("Please fill out all fields.");
     }
     try {
-      const URL = "/api/auth/signup";
+      const URL = "http://localhost:8080/api/auth/signup";
       const live_URL =
         "https://mern-blogwebapp-backend.vercel.app/api/auth/signup";
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch(live_URL, {
+      const res = await fetch(URL, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

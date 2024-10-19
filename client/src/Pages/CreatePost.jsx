@@ -69,8 +69,9 @@ const CreatePost = () => {
       return;
     }
     try {
-      const res = await fetch("/api/post/create", {
+      const res = await fetch("http://localhost:8080/api/post/create", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

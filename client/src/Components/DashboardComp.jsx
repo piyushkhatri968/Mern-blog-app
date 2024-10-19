@@ -25,7 +25,10 @@ const DashboardComp = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(`/api/user/getusers?limit=5`);
+        const res = await fetch(
+          `http://localhost:8080/api/user/getusers?limit=5`,
+          { method: "GET", credentials: "include" }
+        );
         if (res.ok) {
           const data = await res.json();
           setUsers(data.users);
@@ -38,7 +41,10 @@ const DashboardComp = () => {
     };
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/post/getposts?limit=5`);
+        const res = await fetch(
+          `http://localhost:8080/api/post/getposts?limit=5`,
+          { method: "GET", credentials: "include" }
+        );
         if (res.ok) {
           const data = await res.json();
           console.log(data);
@@ -52,7 +58,10 @@ const DashboardComp = () => {
     };
     const fetchComments = async () => {
       try {
-        const res = await fetch(`/api/comment/getcomments?limit=5`);
+        const res = await fetch(
+          `http://localhost:8080/api/comment/getcomments?limit=5`,
+          { method: "GET", credentials: "include" }
+        );
         if (res.ok) {
           const data = await res.json();
           console.log(data);

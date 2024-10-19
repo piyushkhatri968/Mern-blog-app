@@ -35,7 +35,10 @@ const Search = () => {
       try {
         setLoading(true);
         const searchQuery = urlParams.toString();
-        const res = await fetch(`/api/post/getposts?${searchQuery}`);
+        const res = await fetch(
+          `http://localhost:8080/api/post/getposts?${searchQuery}`,
+          { method: "GET", credentials: "include" }
+        );
         if (!res.ok) {
           setLoading(false);
           return;
@@ -95,7 +98,10 @@ const Search = () => {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("startIndex", startIndex);
     const searchQuery = urlParams.toString();
-    const res = await fetch(`/api/post/getposts?${searchQuery}`);
+    const res = await fetch(
+      `http://localhost:8080/api/post/getposts?${searchQuery}`,
+      { method: "GET", credentials: "include" }
+    );
     if (!res.ok) {
       return;
     }

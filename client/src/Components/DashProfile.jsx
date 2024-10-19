@@ -123,13 +123,17 @@ const DashProfile = () => {
 
     try {
       dispatch(updateStart());
-      const response = await fetch(`/api/user/update/${currentUser._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `http://localhost:8080/api/user/update/${currentUser._id}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await response.json();
       if (!response.ok) {
         dispatch(updateFailure(data.message));
@@ -141,7 +145,7 @@ const DashProfile = () => {
       }
     } catch (error) {
       dispatch(updateFailure(error.message));
-      setUpdateUserError(data.message);
+      setUpdateUserError(error.message);
     }
   };
 
@@ -149,10 +153,14 @@ const DashProfile = () => {
     setShowDeleteModel(false);
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-        method: "DELETE",
-      });
-      const data = res.json();
+      const res = await fetch(
+        `http://localhost:8080/api/user/delete/${currentUser._id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
       if (!res.ok) {
         dispatch(deleteUserFailure(data.message));
       } else {
@@ -165,8 +173,9 @@ const DashProfile = () => {
 
   const handleSignOut = async () => {
     try {
-      const res = await fetch("/api/user/signout", {
+      const res = await fetch("http://localhost:8080/api/user/signout", {
         method: "POST",
+        credentials: "include",
       });
       const data = await res.json();
       if (!res.ok) {

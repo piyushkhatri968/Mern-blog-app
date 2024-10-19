@@ -17,7 +17,10 @@ const DashPosts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
+        const res = await fetch(
+          `http://localhost:8080/api/post/getposts`,
+          { method: "GET", credentials: "include" }
+        );
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
@@ -38,7 +41,8 @@ const DashPosts = () => {
     const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
+        `http://localhost:8080/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`,
+        { method: "GET", credentials: "include" }
       );
       const data = await res.json();
       if (res.ok) {
@@ -56,7 +60,7 @@ const DashPosts = () => {
     try {
       const res = await fetch(
         `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
-        { method: "DELETE" }
+        { method: "DELETE", credentials: "include" }
       );
       const data = await res.json();
       if (!res.ok) {

@@ -8,7 +8,12 @@ const port = 8080; //!
 import cookieParser from "cookie-parser";
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Your frontend URL
+    credentials: true, // Allow credentials (cookies)
+  })
+);
 app.use(cookieParser());
 
 import mongoose from "mongoose";
@@ -30,14 +35,14 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`);
-});
-
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/post", postRoute);
 app.use("/api/comment", commentRoute);
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}!`);
+});
 
 // MIDDLEWARE # 01
 app.use((err, req, res, next) => {

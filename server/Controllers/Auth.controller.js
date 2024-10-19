@@ -54,6 +54,8 @@ export const signin = async (req, res, next) => {
       .status(200)
       .cookie("access_token", token, {
         httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // Only true in production
+        sameSite: "lax", // or 'none' if cross-origin requests are involved
       })
       .json(rest); // res is validUser but without password
   } catch (error) {

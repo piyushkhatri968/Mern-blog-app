@@ -13,7 +13,13 @@ const Comments = ({ comment, onLike, onEdit, onDelete }) => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(`/api/user/${comment.userId}`);
+        const res = await fetch(
+          `http://localhost:8080/api/user/${comment.userId}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
         const data = await res.json();
         if (res.ok) {
           setUser(data);
@@ -32,13 +38,17 @@ const Comments = ({ comment, onLike, onEdit, onDelete }) => {
 
   const handleSaveComment = async () => {
     try {
-      const res = await fetch(`/api/comment/editComment/${comment._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ content: editedContent }),
-      });
+      const res = await fetch(
+        `http://localhost:8080/api/comment/editComment/${comment._id}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ content: editedContent }),
+        }
+      );
 
       if (res.ok) {
         setIsEditing(false);
@@ -48,8 +58,6 @@ const Comments = ({ comment, onLike, onEdit, onDelete }) => {
       console.log(error);
     }
   };
-
-
 
   return (
     <div className="flex p-4 border-b dark:border-gray-600 text-sm">

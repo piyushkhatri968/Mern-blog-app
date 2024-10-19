@@ -32,7 +32,10 @@ const UpdatePost = () => {
   useEffect(() => {
     const updatePost = async () => {
       try {
-        const res = await fetch(`/api/post/getposts?postId=${postId}`);
+        const res = await fetch(
+          `http://localhost:8080/api/post/getposts?postId=${postId}`,
+          { method: "GET", credentials: "include" }
+        );
         const data = await res.json();
         if (!res.ok) {
           setPostError(data.message);
@@ -96,9 +99,10 @@ const UpdatePost = () => {
     }
     try {
       const res = await fetch(
-        `/api/post/updatepost/${postId}/${currentUser._id}`,
+        `http://localhost:8080/api/post/updatepost/${postId}/${currentUser._id}`,
         {
           method: "PUT",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },

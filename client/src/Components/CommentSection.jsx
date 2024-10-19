@@ -25,8 +25,9 @@ const CommentSection = ({ postId }) => {
     }
 
     try {
-      const res = await fetch("/api/comment/create", {
+      const res = await fetch("http://localhost:8080/api/comment/create", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -50,7 +51,13 @@ const CommentSection = ({ postId }) => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await fetch(`/api/comment/getPostComments/${postId}`);
+        const res = await fetch(
+          `http://localhost:8080/api/comment/getPostComments/${postId}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
         if (res.ok) {
           const data = await res.json();
           setAllComments(data);
@@ -67,9 +74,13 @@ const CommentSection = ({ postId }) => {
       if (!currentUser) {
         setLikeModal(true);
       }
-      const res = await fetch(`/api/comment/likeComment/${commentId}`, {
-        method: "PUT",
-      });
+      const res = await fetch(
+        `http://localhost:8080/api/comment/likeComment/${commentId}`,
+        {
+          method: "PUT",
+          credentials: "include",
+        }
+      );
       if (res.ok) {
         const data = await res.json();
 
@@ -103,9 +114,10 @@ const CommentSection = ({ postId }) => {
     setDeleteModal(false);
     try {
       const res = await fetch(
-        `/api/comment/deleteComment/${commentToDeleteId}`,
+        `http://localhost:8080/api/comment/deleteComment/${commentToDeleteId}`,
         {
           method: "PUT",
+          credentials: "include",
         }
       );
       if (res.ok) {
