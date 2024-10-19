@@ -36,8 +36,8 @@ const App = () => {
           <Route element={<OnlyAdminPrivateRoute />}>
             <Route path="create-post" element={<CreatePost />} />
             <Route path="/update-post/:postId" element={<UpdatePost />} />
-            <Route path="/search" element={<Search />} />
           </Route>
+          <Route path="/search" element={<Search />} />
         </Routes>
         <Footer />
       </BrowserRouter>
