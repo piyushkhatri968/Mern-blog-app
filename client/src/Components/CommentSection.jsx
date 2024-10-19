@@ -25,18 +25,21 @@ const CommentSection = ({ postId }) => {
     }
 
     try {
-      const res = await fetch("http://localhost:8080/api/comment/create", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content: comment,
-          postId,
-          userId: currentUser._id,
-        }),
-      });
+      const res = await fetch(
+        "https://mern-blogwebapp-backend.vercel.app/api/comment/create",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            content: comment,
+            postId,
+            userId: currentUser._id,
+          }),
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         setComment("");
@@ -52,7 +55,7 @@ const CommentSection = ({ postId }) => {
     const getComments = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8080/api/comment/getPostComments/${postId}`,
+          `https://mern-blogwebapp-backend.vercel.app/api/comment/getPostComments/${postId}`,
           {
             method: "GET",
             credentials: "include",
@@ -75,7 +78,7 @@ const CommentSection = ({ postId }) => {
         setLikeModal(true);
       }
       const res = await fetch(
-        `http://localhost:8080/api/comment/likeComment/${commentId}`,
+        `https://mern-blogwebapp-backend.vercel.app/api/comment/likeComment/${commentId}`,
         {
           method: "PUT",
           credentials: "include",
@@ -114,7 +117,7 @@ const CommentSection = ({ postId }) => {
     setDeleteModal(false);
     try {
       const res = await fetch(
-        `http://localhost:8080/api/comment/deleteComment/${commentToDeleteId}`,
+        `https://mern-blogwebapp-backend.vercel.app/api/comment/deleteComment/${commentToDeleteId}`,
         {
           method: "PUT",
           credentials: "include",

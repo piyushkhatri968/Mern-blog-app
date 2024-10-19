@@ -16,7 +16,7 @@ const PostPage = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `http://localhost:8080/api/post/getposts?slug=${postSlug}`,
+          `https://mern-blogwebapp-backend.vercel.app/api/post/getposts?slug=${postSlug}`,
           { method: "GET", credentials: "include" }
         );
         const data = await res.json();
@@ -42,7 +42,7 @@ const PostPage = () => {
     try {
       const fetchRecentPosts = async () => {
         const res = await fetch(
-          `http://localhost:8080/api/post/getposts?limit=3`,
+          `https://mern-blogwebapp-backend.vercel.app/api/post/getposts?limit=3`,
           { method: "GET", credentials: "include" }
         );
         const data = await res.json();

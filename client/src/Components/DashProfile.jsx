@@ -124,7 +124,7 @@ const DashProfile = () => {
     try {
       dispatch(updateStart());
       const response = await fetch(
-        `http://localhost:8080/api/user/update/${currentUser._id}`,
+        `https://mern-blogwebapp-backend.vercel.app/api/user/update/${currentUser._id}`,
         {
           method: "PUT",
           credentials: "include",
@@ -154,7 +154,7 @@ const DashProfile = () => {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(
-        `http://localhost:8080/api/user/delete/${currentUser._id}`,
+        `https://mern-blogwebapp-backend.vercel.app/api/user/delete/${currentUser._id}`,
         {
           method: "DELETE",
           credentials: "include",
@@ -173,7 +173,7 @@ const DashProfile = () => {
 
   const handleSignOut = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/user/signout", {
+      const res = await fetch("https://mern-blogwebapp-backend.vercel.app/api/user/signout", {
         method: "POST",
         credentials: "include",
       });

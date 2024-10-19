@@ -16,7 +16,7 @@ const DashUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/api/user/getusers`, {
+        const res = await fetch(`https://mern-blogwebapp-backend.vercel.app/api/user/getusers`, {
           method: "GET",
           credentials: "include",
         });
@@ -40,7 +40,7 @@ const DashUsers = () => {
     const startIndex = users.length;
     try {
       const res = await fetch(
-        `http://localhost:8080/api/user/getusers?startIndex=${startIndex}`,
+        `https://mern-blogwebapp-backend.vercel.app/api/user/getusers?startIndex=${startIndex}`,
         { method: "GET", credentials: "include" }
       );
       const data = await res.json();
@@ -58,7 +58,7 @@ const DashUsers = () => {
   const handleDeleteUser = async () => {
     try {
       const res = await fetch(
-        `http://localhost:8080/api/user/delete/${userIdToDelete}`,
+        `https://mern-blogwebapp-backend.vercel.app/api/user/delete/${userIdToDelete}`,
         {
           method: "DELETE",
           credentials: "include",

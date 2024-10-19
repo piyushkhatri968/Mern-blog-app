@@ -15,16 +15,16 @@ const SignUp = () => {
   };
   const submitHandler = async (e) => {
     e.preventDefault();
+    setErrorMessage(null);
     if (!formData.username || !formData.email || !formData.password) {
       return setErrorMessage("Please fill out all fields.");
     }
     try {
-      const URL = "http://localhost:8080/api/auth/signup";
       const live_URL =
         "https://mern-blogwebapp-backend.vercel.app/api/auth/signup";
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch(URL, {
+      const res = await fetch(live_URL, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -40,6 +40,7 @@ const SignUp = () => {
       setLoading(false);
 
       if (res.ok) {
+        setErrorMessage(null);
         navigate("/sign-in");
       }
     } catch (error) {

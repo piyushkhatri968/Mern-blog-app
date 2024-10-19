@@ -26,11 +26,10 @@ const SignIn = () => {
       return dispatch(signInFailure("Please fill out all fields."));
     }
     try {
-      const URL = "http://localhost:8080/api/auth/signin";
       const live_URL =
         "https://mern-blogwebapp-backend.vercel.app/api/auth/signin";
       dispatch(signInStart());
-      const res = await fetch(URL, {
+      const res = await fetch(live_URL, {
         method: "POST",
         credentials: "include",
         headers: {

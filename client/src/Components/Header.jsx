@@ -27,10 +27,13 @@ const Header = () => {
 
   const handleSignOut = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/user/signout", {
-        method: "POST",
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://mern-blogwebapp-backend.vercel.app/api/user/signout",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       if (!res.ok) {
         console.log(data.error);

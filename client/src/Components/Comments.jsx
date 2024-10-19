@@ -14,7 +14,7 @@ const Comments = ({ comment, onLike, onEdit, onDelete }) => {
     const getUser = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8080/api/user/${comment.userId}`,
+          `https://mern-blogwebapp-backend.vercel.app/api/user/${comment.userId}`,
           {
             method: "GET",
             credentials: "include",
@@ -39,7 +39,7 @@ const Comments = ({ comment, onLike, onEdit, onDelete }) => {
   const handleSaveComment = async () => {
     try {
       const res = await fetch(
-        `http://localhost:8080/api/comment/editComment/${comment._id}`,
+        `https://mern-blogwebapp-backend.vercel.app/api/comment/editComment/${comment._id}`,
         {
           method: "PUT",
           credentials: "include",

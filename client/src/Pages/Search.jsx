@@ -36,7 +36,7 @@ const Search = () => {
         setLoading(true);
         const searchQuery = urlParams.toString();
         const res = await fetch(
-          `http://localhost:8080/api/post/getposts?${searchQuery}`,
+          `https://mern-blogwebapp-backend.vercel.app/api/post/getposts?${searchQuery}`,
           { method: "GET", credentials: "include" }
         );
         if (!res.ok) {
@@ -99,7 +99,7 @@ const Search = () => {
     urlParams.set("startIndex", startIndex);
     const searchQuery = urlParams.toString();
     const res = await fetch(
-      `http://localhost:8080/api/post/getposts?${searchQuery}`,
+      `https://mern-blogwebapp-backend.vercel.app/api/post/getposts?${searchQuery}`,
       { method: "GET", credentials: "include" }
     );
     if (!res.ok) {

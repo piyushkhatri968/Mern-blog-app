@@ -69,14 +69,17 @@ const CreatePost = () => {
       return;
     }
     try {
-      const res = await fetch("http://localhost:8080/api/post/create", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://mern-blogwebapp-backend.vercel.app/api/post/create",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (!res.ok) {
         return setPostError(data.message);

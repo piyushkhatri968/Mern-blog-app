@@ -26,7 +26,7 @@ const DashboardComp = () => {
     const fetchUsers = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8080/api/user/getusers?limit=5`,
+          `https://mern-blogwebapp-backend.vercel.app/api/user/getusers?limit=5`,
           { method: "GET", credentials: "include" }
         );
         if (res.ok) {
@@ -42,7 +42,7 @@ const DashboardComp = () => {
     const fetchPosts = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8080/api/post/getposts?limit=5`,
+          `https://mern-blogwebapp-backend.vercel.app/api/post/getposts?limit=5`,
           { method: "GET", credentials: "include" }
         );
         if (res.ok) {
@@ -59,7 +59,7 @@ const DashboardComp = () => {
     const fetchComments = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8080/api/comment/getcomments?limit=5`,
+          `https://mern-blogwebapp-backend.vercel.app/api/comment/getcomments?limit=5`,
           { method: "GET", credentials: "include" }
         );
         if (res.ok) {

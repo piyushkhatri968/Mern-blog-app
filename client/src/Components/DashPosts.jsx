@@ -18,7 +18,7 @@ const DashPosts = () => {
     const fetchPosts = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8080/api/post/getposts`,
+          `https://mern-blogwebapp-backend.vercel.app/api/post/getposts`,
           { method: "GET", credentials: "include" }
         );
         const data = await res.json();
@@ -41,7 +41,7 @@ const DashPosts = () => {
     const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `http://localhost:8080/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`,
+        `https://mern-blogwebapp-backend.vercel.app/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`,
         { method: "GET", credentials: "include" }
       );
       const data = await res.json();
@@ -59,7 +59,7 @@ const DashPosts = () => {
   const handleDeletePost = async () => {
     try {
       const res = await fetch(
-        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        `https://mern-blogwebapp-backend.vercel.app/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
         { method: "DELETE", credentials: "include" }
       );
       const data = await res.json();
