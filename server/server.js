@@ -3,7 +3,7 @@ dotenv.config();
 import cors from "cors";
 import express from "express";
 const app = express();
-const port = 8080; //!
+//const port = 8080; //!
 
 import cookieParser from "cookie-parser";
 
@@ -40,9 +40,9 @@ app.use("/api/auth", authRoute);
 app.use("/api/post", postRoute);
 app.use("/api/comment", commentRoute);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`);
-});
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}!`);
+// });
 
 // MIDDLEWARE # 01
 app.use((err, req, res, next) => {
