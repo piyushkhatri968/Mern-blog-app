@@ -83,6 +83,8 @@ export const google = async (req, res, next) => {
         .status(200)
         .cookie("access_token", token, {
           httpOnly: true,
+          secure: process.env.NODE_ENV === "production", // Only true in production
+          sameSite: "none", // or 'none' if cross-origin requests are involved
         })
         .json(rest);
     } else {
