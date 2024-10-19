@@ -23,10 +23,7 @@ const App = () => {
         <ScrollToTop />
         <Header />
         <Routes>
-          <Route
-            path="/https://pk-mern-blog-app.vercel.app"
-            element={<Home />}
-          />
+          <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/sign-in" element={<SignIn />} />
