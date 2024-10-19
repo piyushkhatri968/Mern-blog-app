@@ -20,7 +20,7 @@ const OAuth = () => {
       const live_URL =
         "https://mern-blogwebapp-backend.vercel.app/api/auth/google";
       const resultsFromGoogle = await signInWithPopup(auth, provider);
-      const res = await fetch(URL, {
+      const res = await fetch(live_URL, {
         method: "POST",
         credentials: "include",
         headers: {
