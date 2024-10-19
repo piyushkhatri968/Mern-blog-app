@@ -29,15 +29,18 @@ const App = () => {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/post/:postSlug" element={<PostPage />} />
+          <Route path="/search" element={<Search />} />
 
+          {/* Private User routee */}
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
+
+          {/* Private Admin route */}
           <Route element={<OnlyAdminPrivateRoute />}>
             <Route path="create-post" element={<CreatePost />} />
             <Route path="/update-post/:postId" element={<UpdatePost />} />
           </Route>
-          <Route path="/search" element={<Search />} />
         </Routes>
         <Footer />
       </BrowserRouter>
