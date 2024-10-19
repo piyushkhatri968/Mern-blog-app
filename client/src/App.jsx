@@ -24,7 +24,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route
-            path="https://pk-mern-blog-app.vercel.app/"
+            path="/https://pk-mern-blog-app.vercel.app"
             element={<Home />}
           />
           <Route path="/about" element={<About />} />
