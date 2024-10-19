@@ -33,7 +33,7 @@ const UpdatePost = () => {
     const updatePost = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8080/api/post/getposts?postId=${postId}`,
+          `https://mern-blogwebapp-backend.vercel.app/api/post/getposts?postId=${postId}`,
           { method: "GET", credentials: "include" }
         );
         const data = await res.json();
@@ -99,7 +99,7 @@ const UpdatePost = () => {
     }
     try {
       const res = await fetch(
-        `http://localhost:8080/api/post/updatepost/${postId}/${currentUser._id}`,
+        `https://mern-blogwebapp-backend.vercel.app/api/post/updatepost/${postId}/${currentUser._id}`,
         {
           method: "PUT",
           credentials: "include",
