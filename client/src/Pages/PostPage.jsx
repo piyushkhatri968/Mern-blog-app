@@ -67,7 +67,11 @@ const PostPage = () => {
 
   return (
     <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
-      <Button className="text-right max-w-10">Edit</Button>
+      {currentUser &&
+        (currentUser.isAdmin ||
+          (currentUser._id === post.UserId && (
+            <Button className="text-right max-w-24">Edit</Button>
+          )))}
       <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl">
         {post && post.title}
       </h1>
