@@ -119,7 +119,7 @@ const CommentSection = ({ postId }) => {
       const res = await fetch(
         `https://mern-blogwebapp-backend.vercel.app/api/comment/deleteComment/${commentToDeleteId}`,
         {
-          method: "PUT",
+          method: "DELETE",
           credentials: "include",
         }
       );
