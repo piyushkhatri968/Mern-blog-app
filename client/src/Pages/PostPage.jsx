@@ -68,7 +68,7 @@ const PostPage = () => {
   return (
     <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
       {currentUser &&
-        currentUser.isAdmin &&
+        currentUser.isAdmin ||
         currentUser._id === post.userId && (
           <Button className="text-right">Edit</Button>
         )}
