@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import CallToAction from "../Components/CallToAction";
 import CommentSection from "../Components/CommentSection";
 import PostCard from "../Components/PostCard";
+import { useSelector } from "react-redux";
 
 const PostPage = () => {
   const { postSlug } = useParams();
@@ -11,6 +12,7 @@ const PostPage = () => {
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState(null);
+  const { currentUser } = useSelector((state) => state.user);
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -65,6 +67,11 @@ const PostPage = () => {
 
   return (
     <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
+      {currentUser &&
+        currentUser.isAdmin &&
+        currentUser._id === post.userId && (
+          <Button className="text-right">Edit</Button>
+        )}
       <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl">
         {post && post.title}
       </h1>
